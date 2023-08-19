@@ -4,6 +4,10 @@ app = Flask(__name__)
 
 data_store = {}
 
+@app.route('/')
+def default_route():
+    return "ok", 200
+
 @app.route('/data', methods=['POST'])
 def receive_data():
     try:
