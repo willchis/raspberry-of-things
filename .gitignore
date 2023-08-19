@@ -1,0 +1,28 @@
+# Compiled Python files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+
+# Local development settings
+settings.ini
+
+# Jupyter Notebook auto-generated files
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Cache files
+.cache/
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+
+# macOS-specific files
+.DS_Store
+
+# Windows-specific files
+Thumbs.db

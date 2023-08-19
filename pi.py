@@ -1,30 +1,27 @@
+from flask import Flask, request, jsonify
 
-import RPi.GPIO as GPIO
-import time
-import sys
+app = Flask(__name__)
 
-GPIO.setmode(GPIO.BCM)
+data_store = {}
 
-LED_PIN = 18
+@app.route('/data', methods=['POST'])
+def receive_data():
+    try:
+        data = request.get_json()
+        
+        if data is None:
+            return jsonify({'error': 'No JSON data provided'}), 400
+        
+        data_store['received_data'] = data
+        
+        return jsonify({'message': 'Data stored successfully'}), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
-GPIO.setup(LED_PIN, GPIO.OUT)
+@app.route('/get_data', methods=['GET'])
+def get_stored_data():
+    return jsonify(data_store)
 
-try:
-    while True:
-        GPIO.output(LED_PIN, True)
-        time.sleep(1)
-        GPIO.output(LED_PIN, False)
-        time.sleep(1)
-finally:
-    GPIO.cleanup()
-
-    
-def buzzer():
-    middle_c = 261
-    p = GPIO.PWM(LED_PIN, middle_c)
-    p.start(50)
-    
-    while True:
-        for freq in range(200, 400, 10):
-            p.ChangeFrequency(freq)
-            time.sleep(0.1)
+if __name__ == '__main__':
+    app.run()
