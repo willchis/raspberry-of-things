@@ -23,9 +23,9 @@ def receive_data():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/get_data', methods=['GET'])
-def get_stored_data():
+@app.route('/data', methods=['GET'])
+def return_data():
     return jsonify(data_store)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=10000)
