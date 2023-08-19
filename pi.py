@@ -16,7 +16,7 @@ def receive_data():
         if data is None:
             return jsonify({'error': 'No JSON data provided'}), 400
         
-        data_store['received_data'] = data
+        data_store.update(data)
         
         return jsonify({'message': 'Data stored successfully'}), 200
         
@@ -26,6 +26,11 @@ def receive_data():
 @app.route('/data', methods=['GET'])
 def return_data():
     return jsonify(data_store)
+
+@app.route('/data', methods=['DELETE'])
+def delete_data_store():
+    data_store = {}
+    return jsonify({'message': 'Data store deleted'}), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=10000)
