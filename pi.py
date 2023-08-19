@@ -28,4 +28,4 @@ def return_data():
     return jsonify(data_store)
 
 if __name__ == '__main__':
-    app.run(port=10000)
+    app.run(host='0.0.0.0',port=10000)
